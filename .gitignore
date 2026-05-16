@@ -1,11 +1,11 @@
 # =========================
-# OS files
+# OS FILES
 # =========================
 .DS_Store
 Thumbs.db
 
 # =========================
-# IDE (VS Code / IntelliJ)
+# IDEs
 # =========================
 .vscode/
 .idea/
@@ -17,7 +17,7 @@ Thumbs.db
 tvtracker-backend/target/
 tvtracker-backend/*.log
 
-# Maven wrapper (if present)
+# Maven wrapper (safe to keep tracked if needed)
 !tvtracker-backend/mvnw
 !tvtracker-backend/mvnw.cmd
 !tvtracker-backend/.mvn/wrapper/maven-wrapper.properties
@@ -34,14 +34,14 @@ tv-tracker-frontend/out-tsc/
 tv-tracker-frontend/src/environments/environment*.ts
 
 # =========================
-# Logs
+# LOGS
 # =========================
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
 # =========================
-# Build artifacts
+# BUILD OUTPUTS
 # =========================
 *.class
 *.jar
