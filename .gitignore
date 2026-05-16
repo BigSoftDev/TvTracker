@@ -25,13 +25,13 @@ tvtracker-backend/*.log
 # =========================
 # FRONTEND (Angular)
 # =========================
-tvtracker-frontend/node_modules/
-tvtracker-frontend/dist/
-tvtracker-frontend/.angular/
-tvtracker-frontend/out-tsc/
+tv-tracker-frontend/node_modules/
+tv-tracker-frontend/dist/
+tv-tracker-frontend/.angular/
+tv-tracker-frontend/out-tsc/
 
 # Angular environment files (DO NOT commit secrets)
-tvtracker-frontend/src/environments/environment*.ts
+tv-tracker-frontend/src/environments/environment*.ts
 
 # =========================
 # Logs
