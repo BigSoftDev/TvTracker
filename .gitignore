@@ -1,0 +1,48 @@
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDE (VS Code / IntelliJ)
+# =========================
+.vscode/
+.idea/
+*.iml
+
+# =========================
+# BACKEND (Spring Boot)
+# =========================
+tvtracker-backend/target/
+tvtracker-backend/*.log
+
+# Maven wrapper (if present)
+!tvtracker-backend/mvnw
+!tvtracker-backend/mvnw.cmd
+!tvtracker-backend/.mvn/wrapper/maven-wrapper.properties
+
+# =========================
+# FRONTEND (Angular)
+# =========================
+tvtracker-frontend/node_modules/
+tvtracker-frontend/dist/
+tvtracker-frontend/.angular/
+tvtracker-frontend/out-tsc/
+
+# Angular environment files (DO NOT commit secrets)
+tvtracker-frontend/src/environments/environment*.ts
+
+# =========================
+# Logs
+# =========================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =========================
+# Build artifacts
+# =========================
+*.class
+*.jar
+*.war
