@@ -2,7 +2,7 @@ package com.rrdz.tvtracker.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +19,7 @@ public class TvdbController {
         this.tvdbService = tvdbService;
     }
 
-    @PostMapping("/top-shows")
+    @GetMapping("/top-shows")
     public List<Show> fetchTopShows() {
         return tvdbService.fetchAndSaveTopShows();
     }

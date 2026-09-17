@@ -21,6 +21,12 @@ public class Show {
     @Column(name = "tvdb_id")
     private Long tvdbId;
 
+    @Column(name="img_link")
+    private String imgLink; 
+
+    @Column(name="score")
+    private Long score;
+
     @Column(nullable = false)
     private String name;
 
@@ -69,6 +75,22 @@ public class Show {
 
     public void setEpisodes(List<Episode> episodes) {
         this.episodes = episodes;
+    }
+
+    public String getImgLink(){
+        return this.imgLink;
+    }
+
+    public void setImgLink(String imgString){
+        this.imgLink = imgString;
+    }
+
+    public Long getScore(){
+        return this.score;
+    }
+
+    public void setScore(Long score){
+        this.score = score;
     }
     
 }
