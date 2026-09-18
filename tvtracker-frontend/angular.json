@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "tv-tracker-frontend": {
+    "tvtracker-frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/tv-tracker-frontend",
+            "outputPath": "dist/tvtracker-frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "tv-tracker-frontend:build:production"
+              "buildTarget": "tvtracker-frontend:build:production"
             },
             "development": {
-              "buildTarget": "tv-tracker-frontend:build:development"
+              "buildTarget": "tvtracker-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"

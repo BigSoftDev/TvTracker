@@ -13,22 +13,7 @@
     <button mat-button routerLink="/my-shows">My Shows</button>
     <button mat-button routerLink="/show-index">New Shows</button>
 
-    <!-- Menu with nested links -->
-    <button mat-button [matMenuTriggerFor]="networkMenu">By Network</button>
-    <mat-menu #networkMenu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>live_tv</mat-icon>
-        <span>Netflix</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>live_tv</mat-icon>
-        <span>HBO</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>live_tv</mat-icon>
-        <span>Hulu</span>
-      </button>
-    </mat-menu>
+    <button mat-button routerLink="/admin">Admin</button>
   </div>
 
   <!-- Spacer for far right alignment -->

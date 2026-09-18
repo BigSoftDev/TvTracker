@@ -73,7 +73,7 @@ public List<Show> fetchAndSaveTopShows() {
     shows.add(show);
 }
 
-   // showRepository.saveAll(shows);
+    showRepository.saveAll(shows);
 
     return shows;
 }

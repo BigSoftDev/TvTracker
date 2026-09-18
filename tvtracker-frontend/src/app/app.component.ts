@@ -14,5 +14,5 @@ import { AppHeaderComponent } from './components/app-header/app-header.component
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'tv-tracker-frontend';
+  title = 'tvtracker-frontend';
 }

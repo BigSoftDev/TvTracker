@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'tv-tracker-frontend' title`, () => {
+  it(`should have the 'tvtracker-frontend' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('tv-tracker-frontend');
+    expect(app.title).toEqual('tvtracker-frontend');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, tv-tracker-frontend');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, tvtracker-frontend');
   });
 });
