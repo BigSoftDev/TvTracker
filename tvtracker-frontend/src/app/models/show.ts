@@ -1,10 +1,10 @@
 import { ShowStatus } from "./showStatus";
 
-export interface Series {
+export interface Show {
   id: number;
   name: string;
   slug: string;
-  imageLink: string | null;
+  imgLink: string | null;
   nameTranslations: string[] | null;
   overviewTranslations: string[] | null;
   aliases: any[] | null; // Using 'any' as the type is not specified. Use a more specific type if known.

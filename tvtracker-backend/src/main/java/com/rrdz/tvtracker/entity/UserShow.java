@@ -1,45 +1,59 @@
-
 package com.rrdz.tvtracker.entity;
-import java.time.LocalDateTime;
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.Table;
+
+
+import com.rrdz.tvtracker.model.ShowStatus;
+
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "user_shows")
+@Table(
+    name = "user_shows",
+    uniqueConstraints = {
+        @UniqueConstraint(
+            name = "uk_user_show",
+            columnNames = {"user_id", "show_id"}
+        )
+    }
+)
 public class UserShow {
 
-    @EmbeddedId
-    private UserShowId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @ManyToOne
-    @MapsId("userId")
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
-    @MapsId("showId")
-    @JoinColumn(name = "show_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "show_id", nullable = false)
     private Show show;
 
-    @Column(name = "added_at")
-    private LocalDateTime addedAt;
+    @Column(nullable = false)
+    private boolean favorite = false;
 
+    @Column
+    private Integer rating;
 
-    public UserShowId getId() {
-        return this.id;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ShowStatus status = ShowStatus.QUEUED;
+
+    public UserShow() {
     }
 
-    public void setId(UserShowId id) {
-        this.id = id;
+    public UserShow(User user, Show show) {
+        this.user = user;
+        this.show = show;
+        this.status = ShowStatus.QUEUED;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public User getUser() {
-        return this.user;
+        return user;
     }
 
     public void setUser(User user) {
@@ -47,19 +61,34 @@ public class UserShow {
     }
 
     public Show getShow() {
-        return this.show;
+        return show;
     }
 
     public void setShow(Show show) {
         this.show = show;
     }
 
-    public LocalDateTime getAddedAt() {
-        return this.addedAt;
+    public boolean isFavorite() {
+        return favorite;
     }
 
-    public void setAddedAt(LocalDateTime addedAt) {
-        this.addedAt = addedAt;
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
-    
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+    public ShowStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ShowStatus status) {
+        this.status = status;
+    }
 }

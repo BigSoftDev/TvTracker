@@ -1,0 +1,59 @@
+<div class="user-selection">
+  <h1>Who's watching?</h1>
+
+  <div class="users">
+    @for (user of users(); track user.id) {
+
+  <button (click)="selectUser(user)">
+    {{ user.username }}
+  </button>
+
+}
+  </div>
+
+  <button class="new-user-btn" (click)="openNewUserModal()">
+    New User
+  </button>
+</div>
+
+@if (showNewUserModal()) {
+  <div class="modal-backdrop" (click)="closeNewUserModal()">
+
+    <div class="modal" (click)="$event.stopPropagation()">
+
+      <h2>Create New User</h2>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+
+        <input
+          id="username"
+          type="text"
+          [(ngModel)]="newUsername"
+          placeholder="Enter username"
+          maxlength="50"
+          (keyup.enter)="saveUser()"
+        />
+      </div>
+
+      <div class="modal-actions">
+        <button
+          class="cancel-btn"
+          type="button"
+          (click)="closeNewUserModal()">
+          Cancel
+        </button>
+
+        <button
+          class="save-btn"
+          type="button"
+          [disabled]="!newUsername.trim()"
+          (click)="saveUser()">
+          Save
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+}

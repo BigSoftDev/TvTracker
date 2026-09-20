@@ -1,11 +1,47 @@
 import { Routes } from '@angular/router';
-import { ShowIndexComponent } from './components/show-index/show-index.component';
+
 import { HomeComponent } from './components/home/home.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { UserSelectionComponent } from './components/user-selection/user-selection.component';
+import { MyShowsComponent } from './components/my-shows/my-shows.component';
+import { NewShowsComponent } from './components/new-shows/new-shows.component';
+
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'show-index', component: ShowIndexComponent },
-  { path: 'admin', component: AdminComponent },
-  { path: '**', redirectTo: '' } // Wildcard for undefined routes
+
+  {
+    path: '',
+    component: HomeComponent,
+    canActivate: [authGuard]
+  },
+
+  {
+    path: 'new-shows',
+    component: NewShowsComponent,
+    canActivate: [authGuard]
+  },
+
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [authGuard]
+  },
+
+  {
+    path: 'user-selection',
+    component: UserSelectionComponent
+  },
+
+  {
+    path: 'my-shows',
+    component: MyShowsComponent,
+    canActivate: [authGuard]
+  },
+
+  {
+    path: '**',
+    redirectTo: ''
+  }
+
 ];

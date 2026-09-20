@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Series } from '../models/series';
+import { Show } from '../models/show';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class ShowService {
 
   constructor(private http: HttpClient) {}
 
-  getAllShows(): Observable<Series[]> {
-    return this.http.get<Series[]>(`${this.baseUrl}/allShows`);
+  getAllShows(): Observable<Show[]> {
+    return this.http.get<Show[]>(`${this.baseUrl}/allShows`);
   }
 }

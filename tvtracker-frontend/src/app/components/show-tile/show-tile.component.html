@@ -1,10 +1,12 @@
 <div class="tile">
   <img
-    [src]="fullLink() || 'assets/placeholder.jpg'"
+    [src]="fullLink()"
     [alt]="show()?.name || ''"
   />
 
   <div class="title">
     {{ show()?.name }}
+
   </div>
+      <button mat-button (click)="addToMyShows()">Add to My Shows</button>
 </div>

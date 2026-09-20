@@ -1,29 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { Series } from '../../models/series';
+import { Component, Input, OnInit } from '@angular/core';
+import { Show } from '../../models/show';
 import { ShowTileComponent } from "../show-tile/show-tile.component";
 import { TvdbService } from '../../service/tvdb.service';
 import { ShowService } from '../../service/show.service';
 
 @Component({
-  selector: 'app-show-index',
+  selector: 'show-index',
   standalone: true,
   templateUrl: './show-index.component.html',
   styleUrls: ['./show-index.component.css'],
   imports: [ShowTileComponent]
 })
-export class ShowIndexComponent implements OnInit {
+export class ShowIndexComponent{
 
-  shows: Series[] = [];
+  @Input() shows: Show[] = [];
 
   constructor(
-    private showService : ShowService,
   ) { }
 
-  ngOnInit() {
-    this.showService.getAllShows().subscribe(result =>{
-      this.shows = result;
-      this.shows.sort((a, b) => b.score - a.score);
-    })
-  }
 
 }
