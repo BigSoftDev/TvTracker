@@ -3,6 +3,7 @@ import { Show } from '../../models/show';
 import { MatButtonModule } from '@angular/material/button';
 import { UserService } from '../../service/user.service';
 import { UserShowService } from '../../service/userShow.service';
+import { UserShowDto } from '../../models/userShowDto';
 
 @Component({
   selector: 'show-tile',
@@ -16,11 +17,11 @@ export class ShowTileComponent {
   private userService = inject(UserService);
   private userShowService = inject(UserShowService);
 
-  show = input<Show | null>(null);
+  userShow = input<UserShowDto | null>(null);
 
   fullLink = computed(() => {
 
-    const currentShow = this.show();
+    const currentShow = this.userShow()?.show;
 
     if (!currentShow?.imgLink) return '';
 
@@ -29,10 +30,31 @@ export class ShowTileComponent {
     return `${base}${currentShow.imgLink.startsWith('/') ? '' : '/'}${currentShow.imgLink}`;
   });
 
+  removeFromMyShows() {
+    const currentShow = this.userShow()?.show;
+    if (!currentShow) return;
+    const user = this.userService.currentUser();
+    if (!user) {
+      console.error('No user is currently selected.');
+      return;
+    }
+
+    this.userShowService.unfollowShow(user.id, currentShow.id).subscribe({
+      next: () => {
+        console.log(`Successfully removed show: ${currentShow.name} from My Shows for user: ${user.username}`);
+      },
+      error: (err) => {
+        console.error('Error removing show from My Shows:', err);
+      }
+    });
+
+    // Logic to remove the show from the user's list of shows
+    console.log(`Removing show: ${currentShow.name} from My Shows`);
+  }
 
 
   addToMyShows() {
-    const currentShow = this.show();
+    const currentShow = this.userShow()?.show;
     if (!currentShow) return;
     const user = this.userService.currentUser();
     if (!user) {

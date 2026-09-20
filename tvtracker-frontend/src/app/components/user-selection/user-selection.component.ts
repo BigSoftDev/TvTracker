@@ -49,6 +49,7 @@ export class UserSelectionComponent {
     this.userService.createUser(username).subscribe({
       next: (user) => {
         this.userService.setCurrentUser(user);
+        this.selectUser(user);
       }
     });
 

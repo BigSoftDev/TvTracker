@@ -15,6 +15,7 @@ export class UserShowService {
 
   private apiUrl = 'http://localhost:8080/api/user-shows';
     constructor(private http: HttpClient) {}
+
     public followShow(userId: number, showId: number) {
         return this.http.post(`${this.apiUrl}/follow`, null, {
             params: { userId: userId.toString(), showId: showId.toString() }
@@ -26,8 +27,14 @@ export class UserShowService {
     }
 
     public getUserShows(userId: number) {
-    return this.http.get<UserShowDto[]>(`${this.apiUrl}/get-user-shows/${userId}`);
+        return this.http.get<UserShowDto[]>(`${this.apiUrl}/get-user-shows/${userId}`);
     }
+
+    public unfollowShow(userId: number, showId: number) {
+        return this.http.delete(`${this.apiUrl}/unfollow`, {
+            params: { userId: userId.toString(), showId: showId.toString() }
+        });
+    } 
 
 
 }

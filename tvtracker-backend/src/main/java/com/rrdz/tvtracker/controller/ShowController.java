@@ -3,9 +3,11 @@ package com.rrdz.tvtracker.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rrdz.tvtracker.dto.UserShowDto;
 import com.rrdz.tvtracker.entity.Show;
 import com.rrdz.tvtracker.service.ShowService;
 
@@ -22,5 +24,10 @@ public class ShowController {
     @GetMapping("/allShows")
     public List<Show> getAllShows() {
         return showService.getAllShows();
+    }
+
+    @GetMapping("/allShowsByUser/{userId}")
+    public List<UserShowDto> getAllShowsForUser(@PathVariable Long userId) {
+        return showService.getAllShowsForUser(userId);
     }
 }

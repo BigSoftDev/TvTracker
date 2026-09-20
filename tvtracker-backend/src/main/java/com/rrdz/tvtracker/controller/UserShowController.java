@@ -18,14 +18,19 @@ public class UserShowController {
     }
 
     @PostMapping("/follow")
-    public void followShow(@RequestParam Long userId, @RequestParam Long showId) {
-        userShowService.addShow(userId, showId);
+    public UserShow followShow(@RequestParam Long userId, @RequestParam Long showId) {
+        return userShowService.addShow(userId, showId);
     }
 
     @GetMapping("/following/{userId}")
     public List<UserShow> getFollowing(@PathVariable Long userId) {
         return userShowService.getShowsForUser(userId);
     }
+
+    @DeleteMapping("/unfollow")
+    public void unfollowShow(@RequestParam Long userId, @RequestParam Long showId) {
+        userShowService.removeShow(userId, showId);
+    }   
 
     @GetMapping ("get-user-shows/{userId}")
     public List<UserShowDto> getUserShows(@PathVariable Long userId) {

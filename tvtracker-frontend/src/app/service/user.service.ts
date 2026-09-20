@@ -49,6 +49,10 @@ export class UserService {
     );
   }
 
+  deleteUser(userId: number) {
+    return this.http.delete(`${this.apiUrl}/delete-user/${userId}`);
+  }
+
   private loadUser(): User | null {
     const savedUser = localStorage.getItem(this.storageKey);
 

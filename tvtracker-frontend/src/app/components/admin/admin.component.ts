@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, signal, Signal } from '@angular/core';
 import { TvdbService } from '../../service/tvdb.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { User, UserService } from '../../service/user.service';
 
 @Component({
   selector: 'admin',
@@ -9,17 +11,39 @@ import { TvdbService } from '../../service/tvdb.service';
   styleUrl: './admin.component.scss'
 })
 export class AdminComponent {
-  constructor(private tvdbService: TvdbService) {}
 
-  fetchShowData() {
-    this.tvdbService.getTopShows().subscribe(
-      (shows) => {
-        console.log('Fetched shows:', shows.length);
-        // You can add logic here to handle the fetched shows, e.g., display them in the UI
-      },
-      (error) => {
-        console.error('Error fetching shows:', error);
-      }
-    );
-  }
+users = signal<User[]>([]);
+
+constructor(
+  private tvdbService: TvdbService,
+  private userService: UserService
+) {
+  this.loadUsers();
+}
+
+loadUsers() {
+  this.userService.getUsers().subscribe(users => {
+    this.users.set(users);
+  });
+}
+
+fetchShowData() {
+  this.tvdbService.getTopShows().subscribe(
+    (shows) => {
+      console.log('Fetched shows:', shows.length);
+    },
+    (error) => {
+      console.error('Error fetching shows:', error);
+    }
+  );
+}
+
+deleteUser(user: User) {
+  this.userService.deleteUser(user.id).subscribe({
+    next: () => {
+      console.log('Deleted user:', user);
+      this.loadUsers();
+    }
+  });
+}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.rrdz.tvtracker.dto.UserShowDto;
 import com.rrdz.tvtracker.entity.Show;
 import com.rrdz.tvtracker.repository.ShowRepository;
 
@@ -18,6 +19,10 @@ public class ShowService {
 
     public List<Show> getAllShows() {
         return showRepository.findAll();
+    }
+
+    public List<UserShowDto> getAllShowsForUser(Long userId) {
+        return showRepository.findAllShowsForUser(userId);
     }
     
 }

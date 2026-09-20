@@ -8,4 +8,14 @@
 <div class="box">
     <button (click)="fetchShowData()" mat-button>Fetch Data</button>
 </div>
+<div class="box">Delete User Accounts:</div>
+<div class="box">
+      <div class="users">
+    @for (user of users(); track user.id) {
+
+  <button (click)="deleteUser(user)">
+    delete {{ user.username }}
+  </button>
+}
+</div>
 </div>

@@ -32,8 +32,4 @@ export class MyShowsComponent {
     ),
     { initialValue: [] }
   );
-
-  shows = computed<Show[]>(() =>
-    this.userShows().map(userShow => userShow.show)
-  );
 }

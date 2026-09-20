@@ -1,4 +1,6 @@
-Below are the latest shows
+
+<h2>My Shows</h2>
+<h3>User: {{ user()?.username }}</h3>
 <show-index
-[shows]="shows()"
+[dtos]="userShows()"
 ></show-index>

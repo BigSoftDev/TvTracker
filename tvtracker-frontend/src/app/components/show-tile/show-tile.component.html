@@ -1,12 +1,20 @@
 <div class="tile">
   <img
     [src]="fullLink()"
-    [alt]="show()?.name || ''"
+    [alt]="userShow()?.show?.name || ''"
   />
 
   <div class="title">
-    {{ show()?.name }}
-
+    {{ userShow()?.show?.name }}
   </div>
-      <button mat-button (click)="addToMyShows()">Add to My Shows</button>
+
+  @if (!userShow()?.userShowId) {
+    <button mat-button (click)="addToMyShows()">
+      Add to My Shows
+    </button>
+  } @else {
+    <button mat-button (click)="removeFromMyShows()">
+      Remove from My Shows
+    </button>
+  }
 </div>

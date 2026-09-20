@@ -1,9 +1,9 @@
 <div>
       <div class="container">
-  @for(show of shows; track show){
+  @for(dto of dtos; track dto){
 
   <show-tile
-  [show]="show"></show-tile>
+  [userShow]="dto"></show-tile>
   }
   </div>
 </div>
