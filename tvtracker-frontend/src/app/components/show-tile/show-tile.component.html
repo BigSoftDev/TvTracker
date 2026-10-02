@@ -7,14 +7,14 @@
   <div class="title">
     {{ userShow()?.show?.name }}
   </div>
-
-  @if (!userShow()?.userShowId) {
-    <button mat-button (click)="addToMyShows()">
-      Add to My Shows
-    </button>
-  } @else {
-    <button mat-button (click)="removeFromMyShows()">
-      Remove from My Shows
-    </button>
+<div>
+<div class="btn-div">
+  @for (action of actions(); track action.label) {
+    @if (!action.visible || action.visible(userShow()!)) {
+      <button mat-button (click)="action.execute(userShow()!)">
+        {{ action.label }}
+      </button>
+    }
   }
+</div>
 </div>

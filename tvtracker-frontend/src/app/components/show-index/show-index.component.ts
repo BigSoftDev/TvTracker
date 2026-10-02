@@ -4,6 +4,7 @@ import { ShowTileComponent } from "../show-tile/show-tile.component";
 import { TvdbService } from '../../service/tvdb.service';
 import { ShowService } from '../../service/show.service';
 import { UserShowDto } from '../../models/userShowDto';
+import { ShowAction } from '../../models/showAction';
 
 @Component({
   selector: 'show-index',
@@ -15,6 +16,7 @@ import { UserShowDto } from '../../models/userShowDto';
 export class ShowIndexComponent{
 
   @Input() dtos: UserShowDto[] = [];
+  @Input() actions: ShowAction[] = [];
 
   constructor(
   ) { }

@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-header',
   standalone: true,
   templateUrl: './app-header.component.html',
-  styleUrls: ['./app-header.component.css'],
+  styleUrls: ['./app-header.component.scss'],
   imports: [
         MatToolbarModule,
     MatButtonModule,
