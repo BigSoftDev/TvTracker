@@ -22,7 +22,7 @@ public class Episode {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "series_id", nullable = false)
+    @JoinColumn(name = "show_id", nullable = false)
     private Show show;
 
     @Column(name = "season_number", nullable = false)

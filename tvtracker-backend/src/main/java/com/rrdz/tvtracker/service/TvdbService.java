@@ -2,6 +2,7 @@ package com.rrdz.tvtracker.service;
 
 import com.rrdz.tvtracker.entity.Episode;
 import com.rrdz.tvtracker.entity.Show;
+import com.rrdz.tvtracker.repository.EpisodeRepository;
 import com.rrdz.tvtracker.repository.ShowRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -18,12 +19,13 @@ import java.util.Map;
 public class TvdbService {
 
     private final ShowRepository showRepository;
-
+    private final EpisodeRepository episodeRepository;
     @Value("${tvdb.api.key}")
     private String apiKey;
 
-    public TvdbService(ShowRepository showRepository) {
+    public TvdbService(ShowRepository showRepository, EpisodeRepository episodeRepository) {
         this.showRepository = showRepository;
+        this.episodeRepository = episodeRepository;
     }
 public List<Show> fetchAndSaveTopShows() {
 
@@ -78,14 +80,20 @@ public List<Show> fetchAndSaveTopShows() {
     return shows;
 }
 
-public List<Episode> fetchEpisodesForShow(Long tvdbId) {
-    //still needs work. 
+public List<Episode> fetchEpisodesForShow(Long showId) {
+        Show show = showRepository.findById(showId)
+                .orElseThrow(() -> new RuntimeException("Show not found"));
+        List<Episode> existingEpisodes = episodeRepository.findByShow(show);
+
+    if (!existingEpisodes.isEmpty()) {
+        return existingEpisodes;
+    }
     String token = getTvdbToken(apiKey);
     RestTemplate restTemplate = new RestTemplate();
     HttpHeaders headers = new HttpHeaders();
     headers.setBearerAuth(token);
     HttpEntity<Void> entity = new HttpEntity<>(headers);
-    String url = "https://api.thetvdb.com/v4/series/" + tvdbId + "/episodes";
+    String url = "https://api.thetvdb.com/v4/series/" + show.getTvdbId() + "/episodes";
     ResponseEntity<Map> response = restTemplate.exchange(
             url,
             HttpMethod.GET,
@@ -108,8 +116,10 @@ public List<Episode> fetchEpisodesForShow(Long tvdbId) {
         episode.setName(name);
         episode.setSeasonNumber(seasonNumber);
         episode.setEpisodeNumber(episodeNumber);
+        episode.setShow(show);
         episodes.add(episode);
     }
+    episodeRepository.saveAll(episodes);
     return episodes;
 }
 
