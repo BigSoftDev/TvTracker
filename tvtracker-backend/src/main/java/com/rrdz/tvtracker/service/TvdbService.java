@@ -1,9 +1,13 @@
 package com.rrdz.tvtracker.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import com.rrdz.tvtracker.entity.Episode;
 import com.rrdz.tvtracker.entity.Show;
 import com.rrdz.tvtracker.repository.EpisodeRepository;
 import com.rrdz.tvtracker.repository.ShowRepository;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -81,45 +85,92 @@ public List<Show> fetchAndSaveTopShows() {
 }
 
 public List<Episode> fetchEpisodesForShow(Long showId) {
-        Show show = showRepository.findById(showId)
-                .orElseThrow(() -> new RuntimeException("Show not found"));
-        List<Episode> existingEpisodes = episodeRepository.findByShow(show);
+    Show show = showRepository.findById(showId)
+            .orElseThrow(() -> new RuntimeException("Show not found"));
+
+    List<Episode> existingEpisodes = episodeRepository.findByShow(show);
 
     if (!existingEpisodes.isEmpty()) {
         return existingEpisodes;
     }
+
     String token = getTvdbToken(apiKey);
+
     RestTemplate restTemplate = new RestTemplate();
+
     HttpHeaders headers = new HttpHeaders();
     headers.setBearerAuth(token);
+    headers.setContentType(MediaType.APPLICATION_JSON);
+
     HttpEntity<Void> entity = new HttpEntity<>(headers);
-    String url = "https://api.thetvdb.com/v4/series/" + show.getTvdbId() + "/episodes";
+
+    String url = "https://api4.thetvdb.com/v4/series/"
+            + show.getTvdbId()
+            + "/episodes/official?page=0";
+
     ResponseEntity<Map> response = restTemplate.exchange(
             url,
             HttpMethod.GET,
             entity,
             Map.class
     );
+
+    Map<String, Object> responseData =
+            (Map<String, Object>) response.getBody().get("data");
+
     List<Map<String, Object>> data =
-            (List<Map<String, Object>>) response.getBody().get("data");
+            (List<Map<String, Object>>) responseData.get("episodes");
+
     List<Episode> episodes = new ArrayList<>();
+
     for (Map<String, Object> item : data) {
         Episode episode = new Episode();
+
         Object nameObj = item.get("name");
-        Object idObj = item.get("id");
-        Object seasonObj = item.get("season");
+        Object seasonObj = item.get("seasonNumber");
         Object numberObj = item.get("number");
-        String name = nameObj != null ? nameObj.toString() : null;
-        Long episodeId = idObj != null ? ((Number) idObj).longValue() : null;
-        int seasonNumber = seasonObj != null ? ((Number) seasonObj).intValue() : null;
-        int episodeNumber = numberObj != null ? ((Number) numberObj).intValue() : null;
-        episode.setName(name);
-        episode.setSeasonNumber(seasonNumber);
-        episode.setEpisodeNumber(episodeNumber);
+        Object airDate = item.get("aired");
+        Object descriptionObj = item.get("overview");
+        Object imageObj = item.get("image");
+
+
+        episode.setName(
+                nameObj != null ? nameObj.toString() : null
+        );
+
+        episode.setSeasonNumber(
+                seasonObj != null
+                        ? ((Number) seasonObj).intValue()
+                        : 0
+        );
+
+        episode.setEpisodeNumber(
+                numberObj != null
+                        ? ((Number) numberObj).intValue()
+                        : 0
+        );
+
+        episode.setAirDate(
+                airDate != null ? LocalDate.parse(airDate.toString()) : null
+        );
+
+        episode.setDescription(
+                descriptionObj != null ? descriptionObj.toString() : null
+        );
+
+        episode.setImgLink(
+                imageObj != null ? imageObj.toString() : null
+        );
+
+        episode.setCreatedAt(LocalDateTime.now());
+
         episode.setShow(show);
+
         episodes.add(episode);
     }
+
     episodeRepository.saveAll(episodes);
+
     return episodes;
 }
 

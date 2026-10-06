@@ -1,0 +1,21 @@
+<div class="tile">
+  <span>{{ userEpisode()?.episode?.episodeNumber }}</span>
+  <img
+    [src]="userEpisode()?.episode?.imgLink || ''"
+    [alt]="userEpisode()?.episode?.name || ''"
+  />
+
+  <div class="title">
+    {{ userEpisode()?.episode?.name }}
+  </div>
+<div>
+<div class="btn-div">
+  @for (action of actions(); track action.label) {
+    @if (!action.visible || action.visible(userEpisode()!)) {
+      <button mat-button (click)="action.execute(userEpisode()!)">
+        {{ action.label }}
+      </button>
+    }
+  }
+</div>
+</div>

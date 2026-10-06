@@ -35,9 +35,6 @@ public class Show {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "show")
-    private List<Episode> episodes;
-
 
     public Long getId() {
         return this.id;
@@ -70,15 +67,7 @@ public class Show {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
-    public List<Episode> getEpisodes() {
-        return this.episodes;
-    }
-
-    public void setEpisodes(List<Episode> episodes) {
-        this.episodes = episodes;
-    }
-
+    
     public String getImgLink(){
         return this.imgLink;
     }

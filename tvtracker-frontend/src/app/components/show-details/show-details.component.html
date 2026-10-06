@@ -1,0 +1,12 @@
+<div class="show-container" >
+  <show-tile [userShow]="show"></show-tile>
+</div>
+@for (entry of episodes | keyvalue; track entry.key) {
+  <div>
+    <h3>Season {{ entry.key }}</h3>
+    <episode-index
+      [dtos]="entry.value"
+      [actions]="actions">
+    </episode-index>
+  </div>
+}

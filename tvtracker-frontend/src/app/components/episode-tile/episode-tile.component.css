@@ -1,0 +1,11 @@
+.tile{
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 1vw; /* Use viewport units for padding as well */
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.tile img{
+  width: 100%;
+}

@@ -8,6 +8,7 @@ import { UserService } from '../../service/user.service';
 import { UserShowService } from '../../service/userShow.service';
 import { ShowAction } from '../../models/showAction';
 import { UserShowDto } from '../../models/userShowDto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'my-shows',
@@ -20,6 +21,7 @@ export class MyShowsComponent {
 
   private userService = inject(UserService);
   private userShowService = inject(UserShowService);
+  private router = inject(Router);
 
   user = this.userService.currentUser;
 
@@ -30,6 +32,11 @@ export class MyShowsComponent {
       label: 'Remove from MyShows',
       visible: show => !!show.userShowId,
       execute: show => this.removeFromMyShows(show)
+    },
+    {
+      label: 'View Details',
+      visible: () => true,
+      execute: (show) => this.goToShowDetails(show.show.id)
     }
   ];
 
@@ -46,6 +53,12 @@ export class MyShowsComponent {
         this.userShows.set(shows);
       });
   }
+
+  goToShowDetails(showId: number) {
+  this.router.navigate(['/show-details'], {
+    queryParams: { showId }
+  });
+}
 
   removeFromMyShows(show: UserShowDto) {
     const currentShow = show.show;

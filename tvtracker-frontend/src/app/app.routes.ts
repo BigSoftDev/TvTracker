@@ -7,6 +7,7 @@ import { MyShowsComponent } from './components/my-shows/my-shows.component';
 import { NewShowsComponent } from './components/new-shows/new-shows.component';
 
 import { authGuard } from './guards/auth.guard';
+import { ShowDetailsComponent } from './components/show-details/show-details.component';
 
 export const routes: Routes = [
 
@@ -36,6 +37,11 @@ export const routes: Routes = [
   {
     path: 'my-shows',
     component: MyShowsComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'show-details',
+    component: ShowDetailsComponent,
     canActivate: [authGuard]
   },
 

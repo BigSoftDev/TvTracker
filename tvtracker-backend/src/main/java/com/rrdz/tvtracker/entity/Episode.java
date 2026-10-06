@@ -39,6 +39,12 @@ public class Episode {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column (name = "description")
+    private String description;
+
+    @Column (name = "img_link")
+    private String imgLink;
+
 
     public Long getId() {
         return this.id;
@@ -94,6 +100,22 @@ public class Episode {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImgLink() {
+        return this.imgLink;
+    }
+
+    public void setImgLink(String imgLink) {
+        this.imgLink = imgLink;
     }
 
 }

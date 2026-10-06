@@ -1,0 +1,10 @@
+<div>
+      <div class="container">
+  @for(dto of dtos; track dto){
+
+  <episode-tile
+  [userEpisode]="dto"
+  [actions]="actions"></episode-tile>
+  }
+  </div>
+</div>
